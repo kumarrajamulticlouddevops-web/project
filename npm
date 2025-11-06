@@ -1,0 +1,26 @@
+{
+  "name": "DeployConfig",
+  "actions": [
+    {
+      "name": "DeployToS3",
+      "actionTypeId": {
+        "category": "Deploy",
+        "owner": "AWS",
+        "provider": "S3",
+        "version": "1"
+      },
+      "runOrder": 1,
+      "configuration": {
+        "BucketName": "your-app-config-bucket-prod", 
+        "Extract": "true",
+        "ObjectKey": "config/inventory/updated_inventory.json" 
+      },
+      "inputArtifacts": [
+        {
+          # This MUST match the artifact name output by your CodeBuild project
+          "name": "BuildArtifact" 
+        }
+      ]
+    }
+  ]
+}
