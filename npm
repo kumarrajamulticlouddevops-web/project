@@ -11,14 +11,13 @@
       },
       "runOrder": 1,
       "configuration": {
-        "BucketName": "your-app-config-bucket-prod", 
+        "BucketName": "your-app-config-bucket-prod",
         "Extract": "true",
-        "ObjectKey": "config/inventory/updated_inventory.json" 
+        "ObjectKey": "config/inventory/updated_inventory.json"
       },
       "inputArtifacts": [
         {
-          # This MUST match the artifact name output by your CodeBuild project
-          "name": "BuildArtifact" 
+          "name": "BuildArtifact"
         }
       ]
     }
