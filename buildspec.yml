@@ -1,30 +1,31 @@
 version: 0.2
 
-# Define runtime environment details
+env:
+  variables:
+    NODE_ENV: test
+
 phases:
   install:
     commands:
-      # Install Python 3.11 environment (adjust version as needed)
-      - echo "Installing Python dependencies..."
-      - apt-get update && apt-get install -y python3-pip
-      
+      - echo Installing dependences...
+      - npm install
+
   pre_build:
     commands:
-      # No pre-build steps needed for this simple script, but this is where you run tests
-      - echo "Running pre-build tasks (e.g., security checks or unit tests)..."
+      - echo Running tests and generating reports...
+      # Generate JSON report
+      - npx jest --runInBand --json --outputFile=test-results.json
+      # Generate HTML report (using reporter config in package.json)
+      - npx jest
 
   build:
     commands:
-      # This runs your Python script, which reads 'inventory.json' and creates 'updated_inventory.json'
-      - echo "Running the inventory processing script..."
-      - python3 inventory_processor.py
-      
-  post_build:
-    commands:
-      - echo "Build finished successfully."
+      - echo Building React App...
+      - npm run build
 
-# Define which files are the output of the build stage
 artifacts:
   files:
-    - 'updated_inventory.json' # This file will be saved as the artifact
-  discard-paths: yes # Saves the file at the root of the artifact bundle
+    - test-results.json
+    - test-report.html
+    - build/**         # Build folder for deployment (only if React)
+  discard-paths: yes
